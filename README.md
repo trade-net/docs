@@ -19,8 +19,7 @@ If the incoming event is accepted by the sequencer, it publishes to its downstre
 For simplicity, the sequencer should support 2 types of events: `OrderEvent` (from te gateway) and `TradeEvent` (from the matching engine).
 
 When an `OrderEvent` is published by the sequencer, the matching engine should process the order and attempt to fill it.
-If successful, it should send a proposed `TradeEvent` to the sequencer and store the event in some form of lookup/buffer.
-When the `TradeEvent` is accepted and published by the sequencer, the matching engine can then complete the trade and remove the corresponding orders from the book.
+If successful, it should complete the match and send `TradeEvent`s to the sequencer to log the event.
 
 The market data publisher and post trade notifer services should also consume from the sequencer.
 This enables the market data publisher to publish all events externally, while the post trade notifier can be used to provide order updates to clients.
